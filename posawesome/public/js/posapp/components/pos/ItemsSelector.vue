@@ -332,8 +332,7 @@ export default {
       }
     },
     formtCurrency(value) {
-      value = parseFloat(value);
-      return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+      return format_number(value);
     },
   },
 
