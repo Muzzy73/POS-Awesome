@@ -3,13 +3,13 @@
     <v-dialog v-model="invoicesDialog" max-width="800px" min-width="800px">
       <v-card>
         <v-card-title>
-          <span class="headline indigo--text">Select Return Invoice</span>
+          <span class="headline indigo--text">{{__('Select Return Invoice')}}</span>
         </v-card-title>
         <v-container>
           <v-row class="mb-4">
             <v-text-field
               color="indigo"
-              label="Invoice ID"
+              :label="frappe._('Invoice ID')"
               background-color="white"
               hide-details
               v-model="invoice_name"
@@ -23,7 +23,7 @@
               color="primary"
               dark
               @click="search_invoices"
-              >Search</v-btn
+              >{{__('Search')}}</v-btn
             >
           </v-row>
           <v-row>
@@ -48,13 +48,13 @@
         </v-container>
         <v-card-actions class="mt-4">
           <v-spacer></v-spacer>
-          <v-btn color="error" dark @click="close_dialog">Close</v-btn>
+          <v-btn color="error mx-2" dark @click="close_dialog">Close</v-btn>
           <v-btn
             v-if="selected.length"
             color="primary"
             dark
             @click="submit_dialog"
-            >Select</v-btn
+            >{{__('Select')}}</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -74,25 +74,25 @@ export default {
     invoice_name: '',
     headers: [
       {
-        text: 'Customer',
+        text: __('Customer'),
         value: 'customer',
         align: 'start',
         sortable: true,
       },
       {
-        text: 'Date',
+        text: __('Date'),
         align: 'start',
         sortable: true,
         value: 'posting_date',
       },
       {
-        text: 'Invoice',
+        text: __('Invoice'),
         value: 'name',
         align: 'start',
         sortable: true,
       },
       {
-        text: 'Amount',
+        text: __('Amount'),
         value: 'grand_total',
         align: 'start',
         sortable: false,
@@ -103,6 +103,11 @@ export default {
   methods: {
     close_dialog() {
       this.invoicesDialog = false;
+    },
+    search_invoices_by_enter(e) {
+      if (e.keyCode === 13) {
+        this.search_invoices();
+      }
     },
     search_invoices() {
       const vm = this;
